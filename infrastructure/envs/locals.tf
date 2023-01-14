@@ -1,5 +1,5 @@
 locals {
-  resource_prefix = "${substr(var.owner, 0, 1)}${substr(var.environment, 0, 1)}-${var.project}"
+  resource_prefix = "${substr(var.owner, 0, 3)}-${substr(var.environment, 0, 1)}-${var.project}"
 
   tags = {
     "Owner"       = var.owner,
