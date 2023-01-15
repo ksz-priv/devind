@@ -1,5 +1,5 @@
 locals {
   resource_group_suffix = "aks"
   tags                  = merge(var.tags)
-  dns_prefix            = "dnsaks"
+  dns_prefix            = "dns"
 }

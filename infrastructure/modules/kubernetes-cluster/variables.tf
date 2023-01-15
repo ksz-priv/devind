@@ -13,7 +13,3 @@ variable "location" {
 variable "tags" {
   type = map(string)
 }
-
-variable "dns_prefix" {
-  type = string
-}

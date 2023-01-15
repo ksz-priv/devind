@@ -21,6 +21,7 @@ module "resource_group" {
 module "kubernetes_cluster" {
   source          = "../modules/kubernetes-cluster"
   resource_prefix = local.resource_prefix
+  rg_name         = module.resource_group.rg_name
   location        = var.location
   tags            = local.tags
 }
