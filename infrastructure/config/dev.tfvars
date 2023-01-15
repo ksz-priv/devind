@@ -1,4 +1,4 @@
 owner       = "ksz"
 environment = "dev"
-project     = "Devind"
+project     = "devind"
 location    = "West Europe"

@@ -17,3 +17,10 @@ module "resource_group" {
   location        = var.location
   tags            = local.tags
 }
+
+module "kubernetes_cluster" {
+  source          = "../modules/kubernetes-cluster"
+  resource_prefix = local.resource_prefix
+  location        = var.location
+  tags            = local.tags
+}
