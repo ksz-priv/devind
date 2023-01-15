@@ -5,6 +5,28 @@ resource "azurerm_kubernetes_cluster" "akscluster" {
   dns_prefix          = "${var.resource_prefix}-${local.dns_prefix}"
   tags                = local.tags
 
+  #tfsec
+
+  api_server_authorized_ip_ranges = [
+    "1.2.3.4/32"
+  ]
+
+  role_based_access_control {
+    enabled = true
+  }
+
+  network_profile {
+    network_policy = "calico"
+  }
+
+  addon_profile {
+    oms_agent {
+      enabled = true
+    }
+  }
+
+  #end tfsec
+
   default_node_pool {
     name       = "default"
     node_count = 1
