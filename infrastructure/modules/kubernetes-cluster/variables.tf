@@ -14,8 +14,9 @@ variable "tags" {
   type = map(string)
 }
 
-variable "kubernetes_network" {
+variable "kubernetes_config" {
   type = object({
+    role_based_access_control_enabled = bool
     network_profile = object({
       network_plugin = string
       network_policy = string
@@ -23,6 +24,16 @@ variable "kubernetes_network" {
 
     api_server_access_profile = object({
       authorized_ip_ranges = list(string)
+    })
+
+    default_node_pool = object({
+      name       = string
+      node_count = number
+      vm_size    = string
+    })
+
+    identity = object({
+      type = string
     })
   })
 
