@@ -1,3 +1,5 @@
+#DEFAULT VALUES
+
 variable "owner" {
   type        = string
   description = "Owner of the project"
@@ -18,6 +20,7 @@ variable "location" {
   description = "Location of the resources"
 }
 
+#KUBERNETES
 
 variable "kubernetes_config" {
   type = object({
@@ -42,4 +45,14 @@ variable "kubernetes_config" {
     })
   })
 
+}
+
+#LOG-AW
+
+variable "sku" {
+  type = string
+}
+
+variable "retention_in_days" {
+  type = number
 }

@@ -38,3 +38,7 @@ variable "kubernetes_config" {
   })
 
 }
+
+variable "log_aw_id" {
+  type = string
+}

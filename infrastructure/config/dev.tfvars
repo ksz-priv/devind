@@ -30,3 +30,9 @@ kubernetes_config = {
     type = "SystemAssigned"
   }
 }
+
+
+#LOG-AW
+
+sku               = "PerGB2018"
+retention_in_days = 30
