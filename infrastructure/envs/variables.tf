@@ -47,6 +47,19 @@ variable "kubernetes_config" {
 
 }
 
+
+variable "namespace_name_dev" {
+  type = string
+}
+
+variable "namespace_name_stage" {
+  type = string
+}
+
+variable "namespace_name_prod" {
+  type = string
+}
+
 #LOG-AW
 
 variable "sku" {

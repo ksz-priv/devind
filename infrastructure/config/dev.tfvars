@@ -17,7 +17,7 @@ kubernetes_config = {
   }
 
   api_server_access_profile = {
-    authorized_ip_ranges = ["188.117.157.11/24"]
+    authorized_ip_ranges = ["188.117.157.0/24"]
   }
 
   default_node_pool = {
@@ -31,6 +31,9 @@ kubernetes_config = {
   }
 }
 
+namespace_name_dev   = "dev"
+namespace_name_stage = "stage"
+namespace_name_prod  = "prod"
 
 #LOG-AW
 
