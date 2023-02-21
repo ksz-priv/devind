@@ -6,6 +6,7 @@ pool:
 
 steps:
 - task: AzureCLI@2
+  displayName: 'Allow agent - adding agent ip to api AKS'
   inputs:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
@@ -15,6 +16,10 @@ steps:
       echo $Current_IP
       Current_IPO="${Current_IP%.*}.0"
       echo $Current_IPO
+      echo "az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,$Current_IPO/24"" > test.sh
+      cat test.sh
+      chmod +x test.sh
+      bash test.sh
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
@@ -23,20 +28,14 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
 
-- task: AzureCLI@2
-  displayName: 'AKS new IP range' 
-  inputs:
-    azureSubscription: 'ksz-sub-devind-rg'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
-- task: AzureCLI@2
-  displayName: 'AKS Agent IP rule' 
-  inputs:
-    azureSubscription: 'ksz-sub-devind-rg'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "$CurrentIPO/24"'
+
+# - task: AzureCLI@2
+#   displayName: 'AKS Agent IP rule' 
+#   inputs:
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "$CurrentIPO/24"'
 
 
 - task: HelmInstaller@1
@@ -56,3 +55,11 @@ steps:
     arguments: '--install'
     chartType: 'FilePath'
     chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
+
+- task: AzureCLI@2
+  displayName: 'AKS Update to old IP range' 
+  inputs:
+    azureSubscription: 'ksz-sub-devind-rg'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
