@@ -1,14 +1,14 @@
-trigger:
-- none
+# trigger:
+# - none
 
-pool:
-  vmImage: ubuntu-latest
+# pool:
+#   vmImage: ubuntu-latest
 
-variables:
-  AgentIP: $[ format('{0}', agent.ipAddresses[0]) ]
+# variables:
+#   AgentIP: $[ format('{0}', agent.ipAddresses[0]) ]
 
 
-steps:
+# steps:
 
 # - task: AzureCLI@2
 #   displayName: 'Get Agent IP address'
@@ -33,6 +33,34 @@ steps:
 #     scriptLocation: 'inlineScript'
 #     inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,$(AgentIP)"'
 
+# - task: HelmInstaller@1
+#   displayName: 'Install Helm'
+#   inputs:
+#     helmVersionToInstall: 'latest'
+
+# - task: HelmDeploy@0
+#   displayName: 'Helm helloworld deploy' 
+#   inputs:
+#     connectionType: 'Azure Resource Manager'
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     azureResourceGroup: 'ksz-d-devind-rg'
+#     kubernetesCluster: 'ksz-d-devind-aks'
+#     namespace: 'dev'
+#     command: 'upgrade'
+#     arguments: '--install'
+#     chartType: 'FilePath'
+#     chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
+
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  AgentIP: $[ format('{0}', agent.ipAddresses[0]) ]
+  
+steps:
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
