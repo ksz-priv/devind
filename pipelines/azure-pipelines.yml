@@ -51,7 +51,7 @@ steps:
     kubernetesCluster: 'ksz-d-devind-aks'
     namespace: 'dev'
     command: 'upgrade'
-    arguments: '--install --force'
+    arguments: '--force'
     chartType: 'FilePath'
     chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
 
