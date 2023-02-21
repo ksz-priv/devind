@@ -19,12 +19,6 @@ A project for learning how to manage a kubernetes cluster.
 
 - Public ip address + custom domain for prod environment.
 
-
-# To do
-
-[ ] Configure kubernetes
-[ ] Add kubernetes provider
-
 ## Authors
 
 - [@Kamil Szwed](https://www.github.com/ksz-priv)

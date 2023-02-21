@@ -1,7 +1,7 @@
-output "client_certificate1" {
-  value     = azurerm_kubernetes_cluster.akscluster.kube_config.0.client_certificate
-  sensitive = true
-}
+# output "client_certificate1" {
+#   value     = azurerm_kubernetes_cluster.akscluster.kube_config.0.client_certificate
+#   sensitive = true
+# }
 
 output "kube_config" {
   value = azurerm_kubernetes_cluster.akscluster.kube_config_raw
