@@ -5,6 +5,14 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+- task: AzureCLI@2
+  displayName: 'Get Agent IP address'
+  inputs:
+    azureSubscription: 'ksz-sub-devind-rg'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'echo "##vso[task.setvariable variable=AgentIP;isOutput=true]$(curl -s https://api.ipify.org)"'
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
@@ -14,12 +22,12 @@ steps:
     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
 
 - task: AzureCLI@2
-  displayName: 'AKS new IP range' 
+  displayName: 'AKS new IP range with Agent IP' 
   inputs:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
+    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,$(AgentIP)"'
 
 - task: HelmInstaller@1
   displayName: 'Install Helm'
