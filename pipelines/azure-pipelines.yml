@@ -14,14 +14,20 @@ steps:
 #   displayName: 'Run a multi-line script'
 
 - task: AzureCLI@2
-  displayName: 'AKS Credentials and new IP range' 
+  displayName: 'AKS Credentials' 
   inputs:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --no-ssh-key'
-    #inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --generate-ssh-keys'
-    #apiVersion: '2022-09-02-preview'
+    inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
+
+- task: AzureCLI@2
+  displayName: 'AKS new IP range' 
+  inputs:
+    azureSubscription: 'ksz-sub-devind-rg'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"''
 
 - task: HelmDeploy@0
   displayName: 'Helm helloworld deploy' 
