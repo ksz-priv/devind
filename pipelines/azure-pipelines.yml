@@ -6,7 +6,7 @@ pool:
 
 steps:
 - task: AzureCLI@2
-  displayName: 'Allow agent - adding agent ip to api AKS'
+  displayName: 'AKS - IP range'
   inputs:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
@@ -27,16 +27,6 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
-
-
-# - task: AzureCLI@2
-#   displayName: 'AKS Agent IP rule' 
-#   inputs:
-#     azureSubscription: 'ksz-sub-devind-rg'
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "$CurrentIPO/24"'
-
 
 - task: HelmInstaller@1
   displayName: 'Install Helm'
