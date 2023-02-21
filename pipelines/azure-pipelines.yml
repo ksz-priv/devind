@@ -19,8 +19,13 @@ steps:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --generate-ssh-keys'
-    apiVersion: '2022-09-02-preview'
+    inlineScript: |
+      az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks
+      az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --generate-ssh-keys --output none
+      az aks ssh-key show -g ksz-d-devind-rg -n ksz-d-devind-aks --name id_rsa --query "publicKey" -o tsv > $(ssh-keygen -y -f ~/.ssh/id_rsa)      
+    
+    #inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --generate-ssh-keys'
+    #apiVersion: '2022-09-02-preview'
 
 - task: HelmDeploy@0
   displayName: 'Helm helloworld deploy' 
