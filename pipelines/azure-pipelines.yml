@@ -17,3 +17,14 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: HelmDeploy@0
+  inputs:
+    connectionType: 'Azure Resource Manager'
+    azureSubscription: 'ksz-sub-devind-rg'
+    azureResourceGroup: 'ksz-d-devind-rg'
+    kubernetesCluster: 'ksz-d-devind-aks'
+    namespace: 'dev'
+    command: 'install'
+    chartType: 'FilePath'
+    chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
