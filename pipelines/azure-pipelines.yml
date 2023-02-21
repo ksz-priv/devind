@@ -13,6 +13,7 @@ steps:
     inlineScript: |
       Current_IP=$(curl ipinfo.io/ip)
       echo $Current_IP
+      Current_IPO="${Current_IP%.*}.0"
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
@@ -27,7 +28,7 @@ steps:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,$CurrentIP/32"'
+    inlineScript: 'az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,$CurrentIPO/24"'
 
 - task: HelmInstaller@1
   displayName: 'Install Helm'
