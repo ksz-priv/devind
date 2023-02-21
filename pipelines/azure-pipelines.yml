@@ -1,30 +1,26 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - none
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+# steps:
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
 
 - task: AzureCLI@2
   inputs:
+    displayName: 'AKS Credentials + new IP range' 
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
-    #  && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24
+    inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
+    
 - task: HelmDeploy@0
   inputs:
     connectionType: 'Azure Resource Manager'
