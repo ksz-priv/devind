@@ -1,3 +1,47 @@
+# trigger:
+# - none
+
+# pool:
+#   vmImage: ubuntu-latest
+
+# steps:
+# # - script: echo Hello, world!
+# #   displayName: 'Run a one-line script'
+
+# # - script: |
+# #     echo Add other tasks to build, test, and deploy your project.
+# #     echo See https://aka.ms/yaml
+# #   displayName: 'Run a multi-line script'
+
+# - task: AzureCLI@2
+#   displayName: 'AKS Credentials' 
+#   inputs:
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
+
+# - task: AzureCLI@2
+#   displayName: 'AKS new IP range' 
+#   inputs:
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"''
+
+# - task: HelmDeploy@0
+#   displayName: 'Helm helloworld deploy' 
+#   inputs:
+#     connectionType: 'Azure Resource Manager'
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     azureResourceGroup: 'ksz-d-devind-rg'
+#     kubernetesCluster: 'ksz-d-devind-aks'
+#     namespace: 'dev'
+#     command: 'upgrade'
+#     arguments: '--install'
+#     chartType: 'FilePath'
+#     chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
+
 trigger:
 - none
 
@@ -5,14 +49,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-# - script: echo Hello, world!
-#   displayName: 'Run a one-line script'
-
-# - script: |
-#     echo Add other tasks to build, test, and deploy your project.
-#     echo See https://aka.ms/yaml
-#   displayName: 'Run a multi-line script'
-
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
@@ -27,7 +63,12 @@ steps:
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"''
+    inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
+
+- task: HelmInstaller@1
+  displayName: 'Install Helm'
+  inputs:
+    helmVersionToInstall: 'latest'
 
 - task: HelmDeploy@0
   displayName: 'Helm helloworld deploy' 
