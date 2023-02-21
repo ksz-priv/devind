@@ -25,6 +25,7 @@ steps:
     azureResourceGroup: 'ksz-d-devind-rg'
     kubernetesCluster: 'ksz-d-devind-aks'
     namespace: 'dev'
-    command: 'install'
+    command: 'upgrade'
+    arguments: '--install'
     chartType: 'FilePath'
     chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
