@@ -57,10 +57,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  AgentIP: $[ format('{0}', agent.ipAddresses[0]) ]
-  
 steps:
+- bash: echo "Agent IP: $(hostname -I | cut -d' ' -f1)"
+  name: agent_ip
+  displayName: 'Get Agent IP'
+  env:
+    AGENT_IP: ${{ format('{0}', steps.agent_ip.outputs['stdout']) }}
+
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
@@ -69,11 +72,15 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
 
-- script: |
-    currentIPRanges=$(az aks show -g ksz-d-devind-rg -n ksz-d-devind-aks --query apiServerAuthorizedIpRanges -o tsv)
-    updatedIPRanges=$(echo $currentIPRanges $AgentIP | tr ' ' '\n' | sort -u | tr '\n' ' ')
-    az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges $updatedIPRanges --no-wait
-  displayName: 'AKS new IP range'
+- task: AzureCLI@2
+  displayName: 'AKS new IP range' 
+  inputs:
+    azureSubscription: 'ksz-sub-devind-rg'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      AGENT_IP=$(hostname -I | cut -d' ' -f1)
+      az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,$AGENT_IP" --no-ssh-key
 
 - task: HelmInstaller@1
   displayName: 'Install Helm'
