@@ -57,13 +57,21 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
 
-- task: AzureCLI@2
-  displayName: 'AKS new IP range' 
-  inputs:
-    azureSubscription: 'ksz-sub-devind-rg'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --no-ssh-key'
+# - task: AzureCLI@2
+#   displayName: 'AKS new IP range' 
+#   inputs:
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24" --no-ssh-key'
+
+- script: |
+    # Add public agent IP address to allowed API connections
+    az aks update \
+    --resource-group ksz-d-devind-rg \
+    --name ksz-d-devind-aks \
+    --api-server-authorized-ip-ranges "$(curl -s https://api.ipify.org)/32, 188.117.157.0/24"
+  displayName: 'Add agent IP and Iteo Kato to allowed API connections'
 
 - task: HelmInstaller@1
   displayName: 'Install Helm'
