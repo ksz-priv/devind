@@ -18,6 +18,19 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'ksz-sub-devind-rg'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks'
+    
+- task: AzureCLI@2
+      inputs:
+        azureSubscription: 'ksz-sub-devind-rg'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
 - task: HelmDeploy@0
   inputs:
     connectionType: 'Azure Resource Manager'
