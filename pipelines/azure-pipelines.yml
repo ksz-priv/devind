@@ -33,13 +33,13 @@ steps:
   inputs:
     helmVersionToInstall: 'latest'
 
-- task: AzureCLI@2
-  displayName: 'Helm upgrade service' 
-  inputs:
-    azureSubscription: 'ksz-sub-devind-rg'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'helm upgrade --install --namespace dev --wait --force --reuse-values 20230221.12 /home/vsts/work/1/s/helm/helloworld-master/helloworld/'
+# - task: AzureCLI@2
+#   displayName: 'Helm upgrade service' 
+#   inputs:
+#     azureSubscription: 'ksz-sub-devind-rg'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: 'helm upgrade --install --namespace dev --wait --force --reuse-values 20230221.12 /home/vsts/work/1/s/helm/helloworld-master/helloworld/'
 
 
 - task: HelmDeploy@0
