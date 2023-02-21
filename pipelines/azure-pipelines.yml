@@ -4,7 +4,7 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-# steps:
+steps:
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'
 
@@ -14,14 +14,15 @@ pool:
 #   displayName: 'Run a multi-line script'
 
 - task: AzureCLI@2
+  displayName: 'AKS Credentials and new IP range' 
   inputs:
-    displayName: 'AKS Credentials + new IP range' 
     azureSubscription: 'ksz-sub-devind-rg'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: 'az aks get-credentials -g ksz-d-devind-rg -n ksz-d-devind-aks && az aks create -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24"'
     
 - task: HelmDeploy@0
+  displayName: 'Helm helloworld deploy' 
   inputs:
     connectionType: 'Azure Resource Manager'
     azureSubscription: 'ksz-sub-devind-rg'
