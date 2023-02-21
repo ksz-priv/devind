@@ -16,10 +16,10 @@ steps:
       echo $Current_IP
       Current_IPO="${Current_IP%.*}.0"
       echo $Current_IPO
-      echo "az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,95.215.28.0/24,$Current_IPO/24"" > test.sh
-      cat test.sh
-      chmod +x test.sh
-      bash test.sh
+      echo "az aks update -g ksz-d-devind-rg -n ksz-d-devind-aks --api-server-authorized-ip-ranges "188.117.157.0/24,95.215.28.0/24,$Current_IPO/24"" > api_ips.sh
+      cat api_ips.sh
+      chmod +x api_ips.sh
+      bash api_ips.sh
 - task: AzureCLI@2
   displayName: 'AKS Credentials' 
   inputs:
@@ -42,7 +42,7 @@ steps:
     kubernetesCluster: 'ksz-d-devind-aks'
     namespace: 'dev'
     command: 'upgrade'
-    arguments: '--install'
+    arguments: '--install --force'
     chartType: 'FilePath'
     chartPath: '$(System.DefaultWorkingDirectory)/helm/helloworld-master/helloworld/'
 
