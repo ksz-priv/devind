@@ -54,16 +54,22 @@ provider "kubernetes" {
 }
 
 module "kubernetes_namespace_dev" {
+  for_each       = { for namespace in var.namespace_names : namespace => namespace }
   source         = "../modules/kubernetes-namespace"
-  namespace_name = var.namespace_name_dev
+  namespace_name = each.key
 }
 
-module "kubernetes_namespace_stage" {
-  source         = "../modules/kubernetes-namespace"
-  namespace_name = var.namespace_name_stage
-}
+# module "kubernetes_namespace_dev" {
+#   source         = "../modules/kubernetes-namespace"
+#   namespace_name = var.namespace_name_dev
+# }
 
-module "kubernetes_namespace_prod" {
-  source         = "../modules/kubernetes-namespace"
-  namespace_name = var.namespace_name_prod
-}
+# module "kubernetes_namespace_stage" {
+#   source         = "../modules/kubernetes-namespace"
+#   namespace_name = var.namespace_name_stage
+# }
+
+# module "kubernetes_namespace_prod" {
+#   source         = "../modules/kubernetes-namespace"
+#   namespace_name = var.namespace_name_prod
+# }

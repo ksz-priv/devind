@@ -31,9 +31,10 @@ kubernetes_config = {
   }
 }
 
-namespace_name_dev   = "dev"
-namespace_name_stage = "stage"
-namespace_name_prod  = "prod"
+namespace_names = ["dev", "stage", "prod"]
+# namespace_name_dev   = "dev"
+# namespace_name_stage = "stage"
+# namespace_name_prod  = "prod"
 
 #LOG-AW
 
