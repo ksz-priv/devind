@@ -13,14 +13,36 @@ steps:
     azureSubscription: $(subscriptionConnectionProd)
     KeyVaultName: $(keyvaultName)
     secretsFilter: '*'
-    action: 'set'
-    secrets: |
-       {
-         "test1": "$(wartosc1)",
-         "test2": "$(wartosc2)"
-       }
-  env:
-    wartosc1: 'test1wartosc'
-    wartosc2: 'test2wartosc'
-  displayName: 'Connect do KeyVault, add some records'
+  displayName: 'Connect do KeyVault'
 
+- task: AzureCLI@2
+  displayName: 'Pętla'
+  inputs:
+    azureSubscription: $(subscriptionConnectionProd)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      i=1
+      n=$(env | grep myValue | wc -l)
+      while [ $i -le $n ]
+      do
+        envVar="myValue$i"
+        secretVar="mySecretName$i"
+        secretName="${!secretVar}"
+        az keyvault secret set --vault-name $keyvaultName --name $secretName --value ${!envVar}
+        i=$((i+1))
+      done
+  env:
+    keyvaultName: $(keyvaultName)
+
+    myValue1: 'wartosc1'
+    mySecretName1: 'mySecret1'
+
+    myValue2: 'wartosc2'
+    mySecretName2: 'mySecret2'
+
+    myValue3: 'wartosc3'
+    mySecretName3: 'mySecret3'
+
+    myValue4: 'wartosc4'
+    mySecretName4: 'mySecret4'
