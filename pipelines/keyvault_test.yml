@@ -10,6 +10,7 @@ steps:
 
 - task: AzureKeyVault@2
   inputs:
-    azureSubscription: 'myAzureSubscription'
-    KeyVaultName: 'myKeyVault'
+    azureSubscription: $(subscriptionConnectionProd)
+    KeyVaultName: $keyvaultName
     secretsFilter: '*'
+
