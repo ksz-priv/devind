@@ -44,5 +44,5 @@ steps:
     myValue3: '{wartosc3}'
     mySecretName3: 'mySecret3'
 
-    myValue4: {wartosc4}
+    myValue4: '{wartosc4}'
     mySecretName4: 'mySecret4'
