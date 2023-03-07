@@ -13,4 +13,14 @@ steps:
     azureSubscription: $(subscriptionConnectionProd)
     KeyVaultName: $(keyvaultName)
     secretsFilter: '*'
+    action: 'set'
+    secrets: |
+       {
+         "test1": "$(wartosc1)",
+         "test2": "$(wartosc2)"
+       }
+  env:
+    wartosc1: 'test1wartosc'
+    wartosc2: 'test2wartosc'
+  displayName: 'Connect do KeyVault, add some records'
 
