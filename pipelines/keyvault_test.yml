@@ -38,7 +38,7 @@ steps:
     myValue1: '{wartosc1}'
     mySecretName1: 'mySecret1'
 
-    myValue2: '{wartosc2-zmienila sie}'
+    myValue2: '{wartosc2-zmienilasie}'
     mySecretName2: 'mySecret2'
 
     myValue3: '{wartosc3}'
