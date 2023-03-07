@@ -1,0 +1,15 @@
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'HelloWorld'
+
+- task: AzureKeyVault@2
+  inputs:
+    azureSubscription: 'myAzureSubscription'
+    KeyVaultName: 'myKeyVault'
+    secretsFilter: '*'
