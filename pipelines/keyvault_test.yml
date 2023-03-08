@@ -61,22 +61,22 @@ steps:
         envVar="myValue$i"
         secretVar="mySecretName$i"
         secretName="${!secretVar}"
-        secretValue="${!envVar}"
-        secretExists=$(az keyvault secret show --vault-name $keyvaultName --name $secretName --query 'id' -o tsv 2>/dev/null || echo "")
-        if [ -z "$secretExists" ]; then
-          az keyvault secret set --vault-name $keyvaultName --name $secretName --value $secretValue
+        existing=$(az keyvault secret show --vault-name $keyvaultName --name $secretName --query value -o tsv --only-show-errors 2>/dev/null)
+        if [ -z "$existing" ]
+        then
+          az keyvault secret set --vault-name $keyvaultName --name $secretName --value ${!envVar}
         else
-          echo "Secret $secretName already exists, skipping creation/update"
+          echo "Secret $secretName already exists with value $existing"
         fi
         i=$((i+1))
       done
   env:
     keyvaultName: $(keyvaultName)
 
-    myValue1: 'wartosc1'
+    myValue1: '{wartosc1}'
     mySecretName1: 'mySecret1'
 
-    myValue2: 'wartosc2'
+    myValue2: '{wartosc2-zmienilasie}'
     mySecretName2: 'mySecret2'
 
     myValue3: '{wartosc3}'
