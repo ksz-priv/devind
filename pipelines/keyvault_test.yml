@@ -15,6 +15,38 @@ steps:
     secretsFilter: '*'
   displayName: 'Connect do KeyVault'
 
+# - task: AzureCLI@2
+#   displayName: 'Petla'
+#   inputs:
+#     azureSubscription: $(MSDN-KSZ)
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       i=1
+#       n=$(env | grep myValue | wc -l)
+#       while [ $i -le $n ]
+#       do
+#         envVar="myValue$i"
+#         secretVar="mySecretName$i"
+#         secretName="${!secretVar}"
+#         az keyvault secret set --vault-name $keyvaultName --name $secretName --value ${!envVar}
+#         i=$((i+1))
+#       done
+#   env:
+#     keyvaultName: $(keyvaultName)
+
+#     myValue1: '{wartosc1}'
+#     mySecretName1: 'mySecret1'
+
+#     myValue2: '{wartosc2-zmienilasie}'
+#     mySecretName2: 'mySecret2'
+
+#     myValue3: '{wartosc3}'
+#     mySecretName3: 'mySecret3'
+
+#     myValue4: '{wartosc4}'
+#     mySecretName4: 'mySecret4'
+
 - task: AzureCLI@2
   displayName: 'Petla'
   inputs:
@@ -29,16 +61,22 @@ steps:
         envVar="myValue$i"
         secretVar="mySecretName$i"
         secretName="${!secretVar}"
-        az keyvault secret set --vault-name $keyvaultName --name $secretName --value ${!envVar}
+        secretValue="${!envVar}"
+        secretExists=$(az keyvault secret show --vault-name $keyvaultName --name $secretName --query 'id' -o tsv 2>/dev/null || echo "")
+        if [ -z "$secretExists" ]; then
+          az keyvault secret set --vault-name $keyvaultName --name $secretName --value $secretValue
+        else
+          echo "Secret $secretName already exists, skipping creation/update"
+        fi
         i=$((i+1))
       done
   env:
     keyvaultName: $(keyvaultName)
 
-    myValue1: '{wartosc1}'
+    myValue1: 'wartosc1'
     mySecretName1: 'mySecret1'
 
-    myValue2: '{wartosc2-zmienilasie}'
+    myValue2: 'wartosc2'
     mySecretName2: 'mySecret2'
 
     myValue3: '{wartosc3}'
