@@ -76,10 +76,10 @@ steps:
     myValue1: '{wartosc1}'
     mySecretName1: 'mySecret1'
 
-    myValue2: '{wartosc2-zmienilasie}'
+    myValue2: 'wartosc2'
     mySecretName2: 'mySecret2'
 
-    myValue3: '{wartosc3}'
+    myValue3: 'wartosc3'
     mySecretName3: 'mySecret3'
 
     myValue4: '{wartosc4}'
