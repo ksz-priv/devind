@@ -77,10 +77,10 @@ steps:
   env:
     keyvaultName: $(keyvaultName)
 
-    myValue1: 'wartosc1'
+    myValue1: 'wartosc111'
     mySecretName1: 'mySecret1'
 
-    myValue2: 'wartosc22'
+    myValue2: 'wartosc222'
     mySecretName2: 'mySecret2'
 
     myValue3: '{wartosc3}'
