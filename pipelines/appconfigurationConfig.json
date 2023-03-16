@@ -1,12 +1,12 @@
 [
-"Sekret1": {
+{
 	"key": "Sekret1",
 	"label": null,
 	"value": "{\"uri\":\"https://ksz-d-devind-kv.vault.azure.net/secrets/mySecret1\"}",
 	"content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
 	"tags": {}
 },
-"Sekret2": {
+{
 	"key": "Sekret2",
 	"label": null,
 	"value": "{\"uri\":\"https://ksz-d-devind-kv.vault.azure.net/secrets/mySecret2\"}",
