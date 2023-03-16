@@ -1,26 +1,10 @@
 {
-    "Smtp__Host": {
-        "uri": "$(smtp_host)"
-    },
-    "Stmp__Port": {
-        "uri": "$(smtp_port)"
-    },
-    "Email__From": {
-        "uri": "$(email_from)"
-    },
-    "AzureBlob__ContainerName": {
-        "uri": "$(templatesContainerName)"
-    },
-    "AdminPanelBaseUrl": {
-        "uri": "$(adminPanelUrl)"
-    },
-    "AzureQueue__FetchUsersQueueName": {
-        "uri": "$(queueWorkerName)"
-    },
-    "AzureAd__Instance": {
-        "uri": "$(AzureAd__Instance)"
-    },
-    "AzureAd__Domain": {
-        "uri": "$(AzureAd__Domain)"
-    }
+    "Smtp__Host": "$(smtp_host)",
+    "Stmp__Port": "$(smtp_port)",
+    "Email__From": "$(email_from)",
+    "AzureBlob__ContainerName": "$(templatesContainerName)",
+    "AdminPanelBaseUrl": "$(adminPanelUrl)",
+    "AzureQueue__FetchUsersQueueName": "$(queueWorkerName)",
+    "AzureAd__Instance": "$(AzureAd__Instance)",
+    "AzureAd__Domain": "$(AzureAd__Domain)"
 }
