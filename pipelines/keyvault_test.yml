@@ -15,173 +15,52 @@ steps:
     secretsFilter: '*'
   displayName: 'Connect do KeyVault'
 
+
 # - task: AzureCLI@2
-#   displayName: 'Petla'
+#   displayName: 'KeyVault Add/Replace Secrets'
 #   inputs:
-#     azureSubscription: $(MSDN-KSZ)
+#     azureSubscription: $(subscriptionConnectionProd)
 #     scriptType: 'bash'
 #     scriptLocation: 'inlineScript'
 #     inlineScript: |
-#       i=1
-#       n=$(env | grep myValue | wc -l)
-#       while [ $i -le $n ]
-#       do
-#         envVar="myValue$i"
-#         secretVar="mySecretName$i"
-#         secretName="${!secretVar}"
-#         az keyvault secret set --vault-name $keyvaultName --name $secretName --value ${!envVar}
-#         i=$((i+1))
-#       done
-#   env:
-#     keyvaultName: $(keyvaultName)
+#         keyVaultName=$(keyvaultName)
+#         declare -A secrets
+#         secrets=( 
 
-#     myValue1: '{wartosc1}'
-#     mySecretName1: 'mySecret1'
-
-#     myValue2: '{wartosc2-zmienilasie}'
-#     mySecretName2: 'mySecret2'
-
-#     myValue3: '{wartosc3}'
-#     mySecretName3: 'mySecret3'
-
-#     myValue4: '{wartosc4}'
-#     mySecretName4: 'mySecret4'
-
-# - task: AzureCLI@2
-#   displayName: 'Petla2'
-#   inputs:
-#     azureSubscription: $(MSDN-KSZ)
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript: |
-#       i=1
-#       n=$(env | grep myValue | wc -l)
-#       while [ $i -le $n ]
-#       do
-#         envVar="myValue$i"
-#         secretVar="mySecretName$i"
-#         secretName="${!secretVar}"
-#         secretValue="${!envVar}"
-#         existing=$(az keyvault secret show --vault-name $keyvaultName --name $secretName -o tsv | awk '{print $6}')
-#         if [ -z "$existing" ]
-#         then
-#           az keyvault secret set --vault-name $keyvaultName --name $secretName --value $secretValue && echo "Secret $secretName has been created"
-#         elif [ "$existing" != "$secretValue" ]
-#         then
-#           az keyvault secret set --vault-name $keyvaultName --name $secretName --value $secretValue && echo "Secret $secretName already exists but has a different value: $existing"
-#         else
-#           echo "Secret $secretName already exists with the same value: $existing"
-#         fi
-#         i=$((i+1))
-#       done
-#   env:
-#     keyvaultName: $(keyvaultName)
-
-#     myValue1: 'wartosc111'
-#     mySecretName1: 'mySecret1'
-
-#     myValue2: 'wartosc222'
-#     mySecretName2: 'mySecret2'
-
-#     myValue3: '{wartosc3}'
-#     mySecretName3: 'mySecret3'
-
-#     myValue4: '{wartosc4}'
-#     mySecretName4: 'mySecret4'
-
-
-- task: AzureCLI@2
-  displayName: 'KeyVault Add/Replace Secrets'
-  inputs:
-    azureSubscription: $(subscriptionConnectionProd)
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-        keyVaultName=$(keyvaultName)
-        declare -A secrets
-        secrets=( 
-
-          ["Name1"]="Value1" 
+#           ["Name1"]="Value1" 
           
-          ["Name2"]="Value2" 
+#           ["Name2"]="Value2" 
           
-          ["Name3"]="Value3" 
+#           ["Name3"]="Value3" 
           
-          ["Name4"]="Value4"
+#           ["Name4"]="Value4"
           
-          ["Name5"]="Value5"
+#           ["Name5"]="Value5"
           
-          ["Name6"]="Value6"
+#           ["Name6"]="Value6"
           
-          ["Name7"]="Value7"
+#           ["Name7"]="Value7"
 
-          ["Name8"]="Value8"
+#           ["Name8"]="Value8"
 
-          )
+#           )
 
-        for secret in "${!secrets[@]}"
-        do
-            existingSecret=$(az keyvault secret show --name $secret --vault-name $keyVaultName --query value -o tsv)
-            if [ -z "$existingSecret" ]
-            then
-                echo "Adding secret: $secret"
-                az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
-            elif [ "$existingSecret" != "${secrets[$secret]}" ]
-            then
-                echo "Updating secret: $secret"
-                az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
-            else
-                echo "No changes needed for secret: $secret"
-            fi
-        done
-      # azureSubscription: $(subscriptionConnectionDev)
-      # scriptType: 'bash'
-      # scriptLocation: 'inlineScript'
-      # inlineScript: |
-      #   set -x
-      #   i=1
-      #   n=$(env | grep myValue | wc -l)
-      #   while [ $i -le $n ]
-      #   do
-      #     envVar="myValue$i"
-      #     secretVar="mySecretName$i"
-      #     secretName="${!secretVar}"
-      #     secretValue=$(echo "${!envVar}" | jq -sR .)
-      #     existing=$(az keyvault secret show --vault-name $keyvaultName --name $secretName -o tsv | awk '{print $6}')
-      #     if [[ -z "$existing" ]]
-      #     then
-      #       az keyvault secret set --vault-name $keyvaultName --name $secretName --value "$secretValue" && echo "Secret $secretName has been created"
-      #     elif [ "$existing" != "$secretValue" ]
-      #     then
-      #       az keyvault secret set --vault-name $keyvaultName --name $secretName --value "$secretValue" && echo "Secret $secretName already exists but has a different value: $existing"
-      #     else
-      #       echo "Secret $secretName already exists with the same value: $existing"
-      #     fi
-      #     i=$((i+1))
-      #   done
-    # env:
-    #   keyvaultName: $(keyvaultName)
+#         for secret in "${!secrets[@]}"
+#         do
+#             existingSecret=$(az keyvault secret show --name $secret --vault-name $keyVaultName --query value -o tsv)
+#             if [ -z "$existingSecret" ]
+#             then
+#                 echo "Adding secret: $secret"
+#                 az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
+#             elif [ "$existingSecret" != "${secrets[$secret]}" ]
+#             then
+#                 echo "Updating secret: $secret"
+#                 az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
+#             else
+#                 echo "No changes needed for secret: $secret"
+#             fi
+#         done
 
-    #   myValue1: 'Value1'
-    #   mySecretName1: 'Name1'
-
-    #   myValue2: 'Value2'
-    #   mySecretName2: 'Name2'
-
-    #   myValue3: 'Value3'
-    #   mySecretName3: 'Name3'
-
-    #   myValue4: 'Value4'
-    #   mySecretName4: 'Name4'
-
-    #   myValue5: 'Value5'
-    #   mySecretName5: 'Name5'
-
-    #   myValue6: 'Value6'
-    #   mySecretName6: 'Name6'
-
-    #   myValue7: 'Value7'
-    #   mySecretName7: 'Name7'
 
 - task: AzureCLI@2
   displayName: "App Configuration push values"
