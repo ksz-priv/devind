@@ -81,11 +81,33 @@ steps:
 #         az appconfig kv set --name $AppConfigKey --value $KVSecret --endpoint $AppConfigUri
 #       done
 
+# - task: AzureAppConfigurationPush@5
+#   inputs:
+#     azureSubscription: $(subscriptionConnectionProd)
+#     AppConfigurationEndpoint: 'https://ksz-appconfiguration-test.azconfig.io'
+#     ConfigurationFile: 'pipelines/appconfigurationConfig.json'
+#     Separator: ','
+#     Strict: false
+
+- task: WriteFile@1
+  displayName: 'Create App Configuration file'
+  inputs:
+    filePath: '$(Build.ArtifactStagingDirectory)/appconfigurationConfig.json'
+    fileContents: |
+      {
+        "smtp_host": "$(smtp_host)",
+        "smtp_port": "$(smtp_port)",
+        "MY_VAR_3": "myVars.MY_VAR_3",
+        "MY_VAR_4": "myVars.MY_VAR_4",
+        "MY_VAR_5": "myVars.MY_VAR_5"
+      }
+    fileType: 'json'
+
 - task: AzureAppConfigurationPush@5
   inputs:
     azureSubscription: $(subscriptionConnectionProd)
     AppConfigurationEndpoint: 'https://ksz-appconfiguration-test.azconfig.io'
-    ConfigurationFile: 'pipelines/appconfigurationConfig.json'
+    ConfigurationFile: '$(Build.ArtifactStagingDirectory)/appconfigurationConfig.json'
     Separator: ','
     Strict: false
-
+  displayName: 'Push configuration to Azure App Configuration'
