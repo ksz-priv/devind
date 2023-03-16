@@ -90,50 +90,50 @@ steps:
 #     mySecretName4: 'mySecret4'
 
 
-  - task: AzureCLI@2
-    displayName: 'KeyVault Add/Replace Secrets'
-    inputs:
-      azureSubscription: $(subscriptionConnectionDev)
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-          keyVaultName=$(keyvaultName)
-          declare -A secrets
-          secrets=( 
+- task: AzureCLI@2
+  displayName: 'KeyVault Add/Replace Secrets'
+  inputs:
+    azureSubscription: $(subscriptionConnectionDev)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+        keyVaultName=$(keyvaultName)
+        declare -A secrets
+        secrets=( 
 
-            ["Name1"]="Value1" 
-            
-            ["Name2"]="Value2" 
-            
-            ["Name3"]="Value3" 
-            
-            ["Name4"]="Value4"
-            
-            ["Name5"]="Value5"
-            
-            ["Name6"]="Value6"
-            
-            ["Name7"]="Value7"
+          ["Name1"]="Value1" 
+          
+          ["Name2"]="Value2" 
+          
+          ["Name3"]="Value3" 
+          
+          ["Name4"]="Value4"
+          
+          ["Name5"]="Value5"
+          
+          ["Name6"]="Value6"
+          
+          ["Name7"]="Value7"
 
-            ["Name8"]="Value8"
+          ["Name8"]="Value8"
 
-            )
+          )
 
-          for secret in "${!secrets[@]}"
-          do
-              existingSecret=$(az keyvault secret show --name $secret --vault-name $keyVaultName --query value -o tsv)
-              if [ -z "$existingSecret" ]
-              then
-                  echo "Adding secret: $secret"
-                  az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
-              elif [ "$existingSecret" != "${secrets[$secret]}" ]
-              then
-                  echo "Updating secret: $secret"
-                  az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
-              else
-                  echo "No changes needed for secret: $secret"
-              fi
-          done
+        for secret in "${!secrets[@]}"
+        do
+            existingSecret=$(az keyvault secret show --name $secret --vault-name $keyVaultName --query value -o tsv)
+            if [ -z "$existingSecret" ]
+            then
+                echo "Adding secret: $secret"
+                az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
+            elif [ "$existingSecret" != "${secrets[$secret]}" ]
+            then
+                echo "Updating secret: $secret"
+                az keyvault secret set --name $secret --value "${secrets[$secret]}" --vault-name $keyVaultName
+            else
+                echo "No changes needed for secret: $secret"
+            fi
+        done
       # azureSubscription: $(subscriptionConnectionDev)
       # scriptType: 'bash'
       # scriptLocation: 'inlineScript'
