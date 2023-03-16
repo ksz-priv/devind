@@ -86,6 +86,6 @@ steps:
     azureSubscription: $(subscriptionConnectionProd)
     AppConfigurationEndpoint: 'https://ksz-appconfiguration-test.azconfig.io'
     ConfigurationFile: 'pipelines/appconfigurationConfig.json'
-    Separator: ':'
+    Separator: ','
     Strict: false
 
