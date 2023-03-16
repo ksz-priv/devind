@@ -97,8 +97,8 @@ steps:
       cd $(Build.ArtifactStagingDirectory)
       touch appconfigurationConfig.json
       echo '{' > appconfigurationConfig.json
-      echo '  "smtp_port": "'"$(smtp_port)"'",' >> appconfigurationConfig.json
-      echo '  "smtp_host": "'"$(smtp_host)"'",' >> appconfigurationConfig.json
+      echo '  "smtp_port": "'"$(Smtp__Port)"'",' >> appconfigurationConfig.json
+      echo '  "smtp_host": "'"$(Smtp__Host)"'",' >> appconfigurationConfig.json
       echo '  "MY_VAR_3": "'"MY_VAR_3"'",' >> appconfigurationConfig.json
       echo '  "MY_VAR_4": "'"${MY_VAR_4}"'",' >> appconfigurationConfig.json
       echo '  "MY_VAR_5": "'"${MY_VAR_5}"'"' >> appconfigurationConfig.json
