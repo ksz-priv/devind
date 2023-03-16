@@ -182,3 +182,22 @@ steps:
 
     #   myValue7: 'Value7'
     #   mySecretName7: 'Name7'
+
+- task: AzureCLI@2
+  displayName: "App Configuration push values"
+  inputs:
+    azureSubscription: $(subscriptionConnectionProd)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      KVUri="https://ksz-d-devind-kv.vault.azure.net/"
+      KVSecretNames=("Name1" "mySecret2" "Name3" "mySecret4" "Name5")
+      for KVSecretName in "${KVSecretNames[@]}"
+      do
+        KVSecret=$(az keyvault secret show --vault-name $KVUri --name $KVSecretName --query 'value' -o tsv)
+
+        AppConfigKey=$(AppConfigKey)
+
+        AppConfigUri="https://ksz-appconfiguration-test.azconfig.io"
+        az appconfig kv set --name $AppConfigKey --value $KVSecret --endpoint $AppConfigUri
+      done
