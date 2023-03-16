@@ -1,16 +1,26 @@
-[
-	{
-		"key": "Sekret1",
-		"label": null,
-		"value": "{\"uri\":\"https://ksz-d-devind-kv.vault.azure.net/secrets/mySecret1\"}",
-		"content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-		"tags": {}
-	},
-	{
-		"key": "Sekret2",
-		"label": null,
-		"value": "{\"uri\":\"https://ksz-d-devind-kv.vault.azure.net/secrets/mySecret2\"}",
-		"content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-		"tags": {}
-	}
-]
+{
+    "Smtp__Host": {
+        "uri": "$(smtp_host)"
+    },
+    "Stmp__Port": {
+        "uri": "$(smtp_port)"
+    },
+    "Email__From": {
+        "uri": "$(email_from)"
+    },
+    "AzureBlob__ContainerName": {
+        "uri": "$(templatesContainerName)"
+    },
+    "AdminPanelBaseUrl": {
+        "uri": "$(adminPanelUrl)"
+    },
+    "AzureQueue__FetchUsersQueueName": {
+        "uri": "$(queueWorkerName)"
+    },
+    "AzureAd__Instance": {
+        "uri": "$(AzureAd__Instance)"
+    },
+    "AzureAd__Domain": {
+        "uri": "$(AzureAd__Domain)"
+    }
+}
