@@ -94,6 +94,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      cd $(Build.ArtifactStagingDirectory)
+      touch appconfigurationConfig.json
       echo "{" > $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "  \"smtp_port\": \"$(echo $smtp_port | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "  \"smtp_host\": \"$(echo $smtp_host | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
