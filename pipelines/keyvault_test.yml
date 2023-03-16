@@ -95,7 +95,7 @@ steps:
     targetType: 'inline'
     script: |
       echo "{" > $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
-      echo "  \"smtp_port\": \"$(echo $(smtp_port) | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
+      echo "  \"smtp_port\": \"$(echo $smtp_port | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "  \"smtp_host\": \"$(echo $smtp_host | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "  \"MY_VAR_3\": \"$(echo $MY_VAR_3 | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "  \"MY_VAR_4\": \"$(echo $MY_VAR_4 | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
