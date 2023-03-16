@@ -8,12 +8,12 @@ steps:
 - script: echo Hello, world!
   displayName: 'HelloWorld'
 
-- task: AzureKeyVault@2
-  inputs:
-    azureSubscription: $(subscriptionConnectionProd)
-    KeyVaultName: $(keyvaultName)
-    secretsFilter: '*'
-  displayName: 'Connect do KeyVault'
+# - task: AzureKeyVault@2
+#   inputs:
+#     azureSubscription: $(subscriptionConnectionProd)
+#     KeyVaultName: $(keyvaultName)
+#     secretsFilter: '*'
+#   displayName: 'Connect do KeyVault'
 
 
 # - task: AzureCLI@2
