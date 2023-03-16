@@ -101,6 +101,7 @@ steps:
       echo "  \"MY_VAR_4\": \"$(echo $MY_VAR_4 | jq -R .)\"," >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "  \"MY_VAR_5\": \"$(echo $MY_VAR_5 | jq -R .)\"" >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
       echo "}" >> $(Build.ArtifactStagingDirectory)/appconfigurationConfig.json
+      cat appconfigurationConfig.json
 
 - task: AzureAppConfigurationPush@5
   inputs:
