@@ -88,7 +88,7 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      KVUri="https://ksz-d-devind-kv.vault.azure.net/"
+      KVUri="ksz-d-devind-kv"
       KVSecretNames=("Name1" "mySecret2" "Name3" "mySecret4" "Name5")
       for KVSecretName in "${KVSecretNames[@]}"
       do
