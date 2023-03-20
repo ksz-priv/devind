@@ -1,0 +1,28 @@
+trigger:
+- none
+
+variables:
+- group: vgksztest
+
+pool:
+  vmImage: ubuntu-latest
+
+
+jobs:
+- job: Test
+  displayName: Pierwszy task
+  steps:
+  - script: echo Pierwszy task
+    displayName: 'Show 1 script'
+
+- job: Test2
+  displayName: Drugi task
+  steps:
+  - script: echo $(vgwartosc1)
+    displayName: 'Show 2 script'
+
+- job: Test3
+  displayName: Trzeci task
+  steps:
+  - script: echo $(vgwartosc2)
+    displayName: 'Show 3 script'
