@@ -3,21 +3,8 @@
 
 A project for learning how to manage a kubernetes cluster.
 
+Some of the pipelines are created as test pipelines or directly to projects.
 
-## Goals
-
-- Create AKS
-
-- Create namespaces: 
-  - dev
-  - stage
-  - prod
-
-- Connect to Azure DevOps
-
-- Create pipeline for manage cluser.
-
-- Public ip address + custom domain for prod environment.
 
 ## Authors
 
