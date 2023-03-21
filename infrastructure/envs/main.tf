@@ -73,3 +73,29 @@ module "kubernetes_namespace_dev" {
 #   source         = "../modules/kubernetes-namespace"
 #   namespace_name = var.namespace_name_prod
 # }
+
+
+# module "app_configuration" {
+#   source             = "../modules/app-configuration"
+#   resource_prefix    = local.resource_prefix
+#   location           = var.location
+#   rg_name            = module.resource_group.rg_name
+#   tags               = local.tags
+#   app_configuration  = var.app_configuration
+#   local_auth_enabled = var.app_configuration.local_auth_enabled
+#   sku_name           = var.app_configuration.sku_name
+# }
+
+
+# module "role-assignment-ac" {
+#   source = "../modules/role-assignment"
+#   scope  = module.app_configuration.app_configuration_id
+#   users  = var.user_roles_ac
+# }
+
+# module "variable_group_infra" {
+#   source                     = "../modules/do-variable-group"
+#   do_project_name            = var.do_project_name
+#   do_variable_group          = var.do_variable_group_infra
+#   do_variable_group_variable = local.do_variable_group_variable_infra
+# }

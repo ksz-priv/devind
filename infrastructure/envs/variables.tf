@@ -73,3 +73,40 @@ variable "sku" {
 variable "retention_in_days" {
   type = number
 }
+
+#APP CONFIGURATION
+
+# variable "app_configuration" {
+#   type = object({
+#     local_auth_enabled = bool
+#     #soft_delete_retention_days = number
+#     purge_protection_enabled = bool
+#     sku_name                 = string
+#     public_network_access    = string
+#   })
+# }
+
+#ROLES APP CONF.
+
+# variable "user_roles_ac" {
+#   type = list(object({
+#     upn                  = string
+#     role_definition_name = string
+#   }))
+#   default = [{
+#     role_definition_name = ""
+#     upn                  = ""
+#   }]
+#   description = "Roles to assign to specific users to app configuration"
+# }
+
+#VARIABLE GROUP INFRA - DEVOPS
+
+# variable "do_variable_group_infra" {
+#   type = object({
+#     name         = string
+#     description  = string
+#     allow_access = bool
+#   })
+#   description = "Configuration of the variable group responsible for infrastructure variables"
+# }
