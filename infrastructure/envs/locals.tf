@@ -7,12 +7,13 @@ locals {
     "Project"     = var.project,
     "Management"  = "terraform",
   }
-}
 
-do_variable_group_variable_infra = [
-  {
-    name      = "AppConfigurationID"
-    value     = module.app_configuration.app_configuration_principal_id
-    is_secret = false
-  }
-]
+
+  # do_variable_group_variable_infra = [
+  #   {
+  #     name      = "AppConfigurationID"
+  #     value     = module.app_configuration.app_configuration_principal_id
+  #     is_secret = false
+  #   }
+  # ]
+}

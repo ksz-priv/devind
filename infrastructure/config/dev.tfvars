@@ -43,31 +43,31 @@ retention_in_days = 30
 
 #APP CONFIGURATION
 
-app_configuration = {
-  local_auth_enabled = true
-  #soft_delete_retention_days = 0
-  purge_protection_enabled = false
-  sku_name                 = "free"
-  public_network_access    = "Enabled"
-}
+# app_configuration = {
+#   local_auth_enabled = true
+#   #soft_delete_retention_days = 0
+#   purge_protection_enabled = false
+#   sku_name                 = "free"
+#   public_network_access    = "Enabled"
+# }
 
 #ROLES APP CONF.
 
-user_roles_ac = [
-  {
-    role_definition_name = "Owner"
-    upn                  = "email@domena.com"
-  },
-  {
-    role_definition_name = "Owner"
-    upn                  = "email@domena.com"
-  }
-]
+# user_roles_ac = [
+#   {
+#     role_definition_name = "Owner"
+#     upn                  = "email@domena.com"
+#   },
+#   {
+#     role_definition_name = "Owner"
+#     upn                  = "email@domena.com"
+#   }
+# ]
 
 #VARIABLE GROUP INFRA - DEVOPS
 
-do_variable_group_infra = {
-  name         = "terraform_infrastructure"
-  description  = "Names of resources required in pipelines for dev environment managed by terraform"
-  allow_access = false
-}
+# do_variable_group_infra = {
+#   name         = "terraform_infrastructure"
+#   description  = "Names of resources required in pipelines for dev environment managed by terraform"
+#   allow_access = false
+# }
