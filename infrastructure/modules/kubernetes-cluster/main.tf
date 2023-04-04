@@ -5,6 +5,7 @@ resource "azurerm_kubernetes_cluster" "akscluster" {
   dns_prefix          = "${var.resource_prefix}-${local.dns_prefix}"
   tags                = local.tags
 
+  kubernetes_version                = var.kubernetes_config.kubernetes_version
   sku_tier                          = var.kubernetes_config.sku_tier
   role_based_access_control_enabled = var.kubernetes_config.role_based_access_control_enabled
 

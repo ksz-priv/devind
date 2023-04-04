@@ -26,6 +26,7 @@ variable "kubernetes_config" {
   type = object({
     sku_tier                          = string
     role_based_access_control_enabled = bool
+    kubernetes_version                = string
     network_profile = object({
       network_plugin = string
       network_policy = string

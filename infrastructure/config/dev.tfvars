@@ -10,8 +10,9 @@ location    = "West Europe"
 #KUBERNETES
 
 kubernetes_config = {
-  sku_tier                          = "Free"
   role_based_access_control_enabled = true
+  sku_tier                          = "Free"
+  kubernetes_version                = "1.24.9"
   network_profile = {
     network_plugin = "azure"
     network_policy = "calico"
