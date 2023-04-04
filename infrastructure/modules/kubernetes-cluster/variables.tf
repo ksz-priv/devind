@@ -17,6 +17,7 @@ variable "tags" {
 variable "kubernetes_config" {
   type = object({
     role_based_access_control_enabled = bool
+    sku_tier                          = string
     network_profile = object({
       network_plugin = string
       network_policy = string

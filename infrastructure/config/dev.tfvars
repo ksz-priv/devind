@@ -10,6 +10,7 @@ location    = "West Europe"
 #KUBERNETES
 
 kubernetes_config = {
+  sku_tier                          = "Free"
   role_based_access_control_enabled = true
   network_profile = {
     network_plugin = "azure"
@@ -31,7 +32,7 @@ kubernetes_config = {
   }
 }
 
-namespace_names = ["dev", "stage", "prod"]
+namespace_names = ["dev", "stage"]
 # namespace_name_dev   = "dev"
 # namespace_name_stage = "stage"
 # namespace_name_prod  = "prod"
